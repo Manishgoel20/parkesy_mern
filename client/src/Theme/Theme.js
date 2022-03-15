@@ -3,17 +3,25 @@ import { createTheme } from '@mui/material/styles'
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#5e35b1',
+      main: '#ffbf1a',
+      light: '#FFECBA',
     },
     secondary: {
-      main: '#8e24aa',
+      main: '#A91EFF',
+      light: '#8e24aa',
     },
-
+    tertiary: {
+      main: '#EC8F62',
+    },
+    error: {
+      main: '#FF3D60',
+    },
+    warning: { main: '#FFC179' },
+    info: { main: '#6F3DFF' },
+    success: { main: '#00DE73' },
     custom: {
-      main: '#f5f5f5',
-      purple: '#6E3ED4',
-      orange: '#FF7339',
-      yellow: '#ffc400',
+      dark: '#2e2d2d',
+      grey: '#969696',
     },
   },
   breakpoints: {
@@ -31,6 +39,10 @@ export const theme = createTheme({
     },
   },
   typography: {
+    // fontFamily: 'poppins, sans-serif',
+    fontFamily: 'roboto, sans-serif',
+    htmlFontSize: 1,
+    fontSize: 1.5,
     h1: {},
     h3: {},
     h4: {},

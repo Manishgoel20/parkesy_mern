@@ -1,0 +1,10 @@
+.inputField {
+  position: relative;
+
+  &__icon {
+    position: absolute;
+    cursor: pointer;
+    transform: translateY(-100%);
+    right: 0;
+  }
+}

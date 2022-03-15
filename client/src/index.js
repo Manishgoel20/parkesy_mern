@@ -1,11 +1,19 @@
+import { ThemeProvider } from '@mui/material'
 import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 import ReactDOM from 'react-dom'
+import './App.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import { theme } from './Theme/Theme'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 )

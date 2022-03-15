@@ -1,0 +1,22 @@
+svg#freepik_stories-parking:not(.animated) .animable {
+  opacity: 0;
+}
+
+svg#freepik_stories-parking.animated #freepik--Clouds--inject-16 {
+  animation: 3s Infinite linear floating;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-parking.animated #freepik--Sun--inject-16 {
+  animation: 6s Infinite linear floating;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-parking.animated #freepik--Locator--inject-16 {
+  animation: 1.5s Infinite linear floating;
+  animation-delay: 0s;
+}
+
+.animator-hidden {
+  display: none;
+}

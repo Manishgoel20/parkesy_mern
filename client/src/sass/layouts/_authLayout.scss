@@ -1,0 +1,25 @@
+.auth {
+  height: 100vh;
+  width: 100vw;
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 95%;
+    z-index: -2;
+  }
+
+  &__bgFront {
+    z-index: -1;
+
+    @include respond(tab-land) {
+      width: 90%;
+    }
+
+    @include respond(tab-port) {
+      display: none;
+    }
+  }
+}

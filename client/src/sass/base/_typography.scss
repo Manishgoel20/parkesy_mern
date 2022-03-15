@@ -1,9 +1,16 @@
 body {
   font-family: 'poppins', sans-serif;
-  font-weight: 400;
+  font-weight: normal;
   line-height: 1.7;
   box-sizing: border-box;
   // background-color: $prime-bg;
   // color: $black;
   // visibility: hidden;
+  overflow-x: hidden;
+}
+
+.MuiFormHelperText-root {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
