@@ -57,7 +57,7 @@ const ForgotPassword = () => {
             Back to login
           </Typography>
           <Typography ml={1} align="right" variant="body2" color="secondary">
-            <Link className="link link__small" to="/auth/signin">
+            <Link className="link link__small" to="/signin">
               Click here
             </Link>
           </Typography>

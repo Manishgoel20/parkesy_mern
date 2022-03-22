@@ -112,6 +112,25 @@ code {
   .container {
     padding: 0 2rem; } }
 
+::-moz-selection {
+  /* Code for Firefox */
+  background: rgba(255, 191, 26, 0.5); }
+
+::selection {
+  background: rgba(255, 191, 26, 0.5); }
+
+::-webkit-scrollbar {
+  width: 0.5rem; }
+
+::-webkit-scrollbar-track {
+  background: transparent; }
+
+::-webkit-scrollbar-thumb {
+  background: #ffecba; }
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffbf1a; }
+
 body {
   font-family: 'poppins', sans-serif;
   font-weight: normal;
@@ -145,3 +164,58 @@ body {
     @media (max-width: 56.25em) {
       .auth__bgFront {
         display: none; } }
+
+.appbar__transparent {
+  display: flex;
+  justify-content: center;
+  background: transparent !important;
+  transition: all 0.3s ease !important; }
+
+.appbar__colored {
+  display: flex;
+  justify-content: center;
+  background: #fff !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0.2px 0.2px 5px white !important; }
+
+.geocoder_container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%; }
+  .geocoder_container svg {
+    right: 0;
+    z-index: 100;
+    margin-left: 5px;
+    transform: scale(0.9);
+    cursor: pointer;
+    color: #333;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .geocoder_container svg:hover {
+      color: #ec8f62; }
+
+@media screen and (min-width: 640px) {
+  .mapboxgl-ctrl-geocoder {
+    width: initial !important;
+    max-width: initial !important; } }
+
+.mapboxgl-ctrl-geocoder {
+  box-shadow: none !important;
+  width: 100% !important; }
+  .mapboxgl-ctrl-geocoder--input {
+    border-radius: 0.5rem;
+    border: 1px solid #ec8f62 !important;
+    outline: none !important; }
+
+.dateTime {
+  background: #fff;
+  height: auto;
+  width: 100%;
+  border: 1px solid #ec8f62;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  color: #333;
+  font-size: 1.6rem; }

@@ -214,7 +214,7 @@ const Signup = () => {
             Already have an account?
           </Typography>
           <Typography ml={1} align="right" variant="body2" color="secondary">
-            <Link className="link link__small" to="/auth/signin">
+            <Link className="link link__small" to="/signin">
               Sign in
             </Link>
           </Typography>

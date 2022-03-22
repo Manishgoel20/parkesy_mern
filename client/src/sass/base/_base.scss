@@ -47,29 +47,27 @@ code {
   }
 }
 
-// ::-moz-selection {
-//   /* Code for Firefox */
-//   background: rgba($second-clr, 0.5);
-// }
+::-moz-selection {
+  /* Code for Firefox */
+  background: rgba($primeMain, 0.5);
+}
 
-// ::selection {
-//   background: rgba($second-clr, 0.5);
-// }
+::selection {
+  background: rgba($primeMain, 0.5);
+}
 
-// custom scrollbar
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
 
-// ::-webkit-scrollbar {
-//   width: 0.5rem;
-// }
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-// ::-webkit-scrollbar-track {
-//   background: transparent;
-// }
+::-webkit-scrollbar-thumb {
+  background: $primeLight;
+}
 
-// ::-webkit-scrollbar-thumb {
-//   background: $med-green;
-// }
-
-// ::-webkit-scrollbar-thumb:hover {
-//   background: $dark-green;
-// }
+::-webkit-scrollbar-thumb:hover {
+  background: $primeMain;
+}

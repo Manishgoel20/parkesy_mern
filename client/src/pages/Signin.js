@@ -86,7 +86,7 @@ const Signin = () => {
 
         <Box py={1}>
           <Typography align="right" variant="body2" color="secondary">
-            <Link className="link link__small" to="/auth/forgot-password">
+            <Link className="link link__small" to="/forgot-password">
               Forgot password?
             </Link>
           </Typography>
@@ -100,7 +100,7 @@ const Signin = () => {
             Don't have any account yet?
           </Typography>
           <Typography ml={1} align="right" variant="body2" color="secondary">
-            <Link className="link link__small" to="/auth/signup">
+            <Link className="link link__small" to="/signup">
               Sign up
             </Link>
           </Typography>

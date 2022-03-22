@@ -3,16 +3,21 @@ import Header from './components/Header'
 
 import AuthLayout from './layouts/AuthLayout'
 import ForgotPassword from './pages/ForgotPassword'
+import Home from './pages/Home'
 import ResetPassword from './pages/ResetPassword'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
+import Toast from './components/Toast'
 
 function App() {
   return (
     <>
+      <Toast />
       <Header />
+
       <Routes>
-        <Route path="/auth" element={<AuthLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/" element={<AuthLayout />}>
           <Route path="signin" element={<Signin />} />
           <Route path="signup" element={<Signup />} />
           <Route path="forgot-password" element={<ForgotPassword />} />

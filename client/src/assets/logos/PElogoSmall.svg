@@ -1,6 +1,6 @@
 <svg width="289" height="289" viewBox="0 0 289 289" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_208_2)">
-<rect x="13.5" y="13.5" width="254" height="254" rx="127" fill="white" stroke="#EC8F62" stroke-width="5"/>
+<rect x="11" y="11" width="259" height="259" rx="129.5" fill="white"/>
 <mask id="path-2-inside-1_208_2" fill="white">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M100 52C78.4609 52 61 69.4609 61 91V175.533C61 197.072 78.4609 214.533 100 214.533H114.447L140.5 256.933L166.553 214.533H181C202.539 214.533 220 197.072 220 175.533V91C220 69.4609 202.539 52 181 52H100Z"/>
 </mask>

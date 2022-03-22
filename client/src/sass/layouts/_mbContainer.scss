@@ -1,0 +1,43 @@
+.geocoder_container {
+  //   position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  svg {
+    // position: absolute;
+    right: 0;
+    z-index: 100;
+    margin-left: 5px;
+    transform: scale(0.9);
+    cursor: pointer;
+    color: $grey-3;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    &:hover {
+      color: $tertMain;
+    }
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .mapboxgl-ctrl-geocoder {
+    width: initial !important;
+    max-width: initial !important;
+  }
+}
+
+.mapboxgl-ctrl-geocoder {
+  //   overflow: hidden !important;
+  box-shadow: none !important;
+  width: 100% !important;
+
+  &--input {
+    border-radius: 0.5rem;
+    border: 1px solid $tertMain !important;
+    outline: none !important;
+  }
+}

@@ -7,8 +7,8 @@ export const theme = createTheme({
       light: '#FFECBA',
     },
     secondary: {
-      main: '#A91EFF',
-      light: '#8e24aa',
+      main: '#8e24aa',
+      light: '#A91EFF',
     },
     tertiary: {
       main: '#EC8F62',
@@ -43,7 +43,12 @@ export const theme = createTheme({
     fontFamily: 'roboto, sans-serif',
     htmlFontSize: 1,
     fontSize: 1.5,
-    h1: {},
+    h1: {
+      fontFamily: 'poppins, sans-serif',
+      fontWeight: 800,
+      letterSpacing: -1,
+      fontSize: 60,
+    },
     h3: {},
     h4: {},
     h5: {},
