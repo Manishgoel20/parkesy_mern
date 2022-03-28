@@ -5,6 +5,7 @@ import xss from 'xss-clean'
 import cookieParser from 'cookie-parser'
 import rateLimit from 'express-rate-limit'
 import ExpressMongoSanitize from 'express-mongo-sanitize'
+import cors from 'cors'
 
 // relative imports
 import { AppError, globalErrorHandler } from './middlewares/Errorhandler.js'
@@ -22,6 +23,7 @@ if (process.env.NODE_ENV === 'development') {
   App.use(morgan('dev'))
 }
 
+App.use(cors({ credentials: true }))
 const limiter = rateLimit({
   max: 500,
   windowMs: 60 * 60 * 1000,

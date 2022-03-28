@@ -5,10 +5,6 @@
 // font-family: 'Great Vibes', cursive;
 // font-family:  'Rasa', serif;
 
-@import './components/svgs';
-@import './components/inputFields';
-@import './components/links';
-
 @import './abstracts/functions';
 @import './abstracts/mixins';
 @import './abstracts/variables';
@@ -18,7 +14,15 @@
 @import './base/typography';
 @import './base/utilities';
 
+@import './components/svgs';
+@import './components/inputFields';
+@import './components/links';
+@import './components/showDetails';
+
 @import './layouts/authLayout';
+@import './layouts/avatar';
 @import './layouts/appbar';
 @import './layouts/mbContainer';
 @import './layouts/dateTime';
+@import './layouts/pageView';
+@import './layouts/details';

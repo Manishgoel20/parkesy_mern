@@ -2,12 +2,18 @@ import { ThemeProvider } from '@mui/material'
 import { BrowserRouter as Router } from 'react-router-dom'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import axios from 'axios'
+import { Provider } from 'react-redux'
+
 import './App.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import { Provider } from 'react-redux'
 import store from './globalStore/store'
 import { theme } from './Theme/Theme'
+
+axios.defaults.baseURL = 'http://localhost:3000/api/v1'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.withCredentials = true
 
 ReactDOM.render(
   <React.StrictMode>

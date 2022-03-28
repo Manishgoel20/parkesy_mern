@@ -1,14 +1,16 @@
 import { Grid, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useFormik } from 'formik'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as yup from 'yup'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Logo from '../assets/logos/peLogo.svg'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import LoadingButton from '../components/LoadingButton'
+import { login } from '../globalStore/ducks/userAuth'
 
 const validationSchema = yup.object({
   siEmail: yup
@@ -24,8 +26,19 @@ const validationSchema = yup.object({
 })
 
 const Signin = () => {
-  const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const { userInfo } = useSelector((state) => state.userAuth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const redirect = location.search ? location.search.split('=')[1] : '/'
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect, { replace: true })
+    }
+  }, [navigate, redirect, userInfo])
 
   // Handling form
   const formik = useFormik({
@@ -34,8 +47,9 @@ const Signin = () => {
       siPassword: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      console.log(values)
+    onSubmit: (values, { resetForm, setSubmitting }) => {
+      setSubmitting(true)
+      dispatch(login(values, resetForm, setSubmitting))
     },
   })
 
@@ -93,7 +107,7 @@ const Signin = () => {
         </Box>
 
         <Box mt={3}>
-          <LoadingButton loading={false} text="sign in" />
+          <LoadingButton loading={formik.isSubmitting} text="sign in" />
         </Box>
         <Box py={1} textAlign="right" display="flex">
           <Typography variant="body2" color="custom.dark">

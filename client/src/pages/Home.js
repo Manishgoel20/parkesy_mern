@@ -26,12 +26,19 @@ import moment from 'moment'
 import LoadingButton from '../components/LoadingButton'
 import DateTimeInput from '../components/DateTimeInput'
 import { setToast } from '../globalStore/ducks/toast'
+import { setMinStartDate } from '../utils/Date'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     color: theme.palette.tertiary.main,
     background: theme.palette.common.white,
     width: '100%',
+  },
+  select: {
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 }))
 
@@ -40,34 +47,36 @@ const Home = () => {
   const classes = useStyles()
 
   const [loading, setLoading] = useState(false)
-  const [startDate, setStartDate] = useState(new Date())
-  const [endDate, setEndDate] = useState(new Date())
-  const [vehicleType, setVehicleType] = useState('car')
+  // const [startDate, setStartDate] = useState(new Date())
+  // const [endDate, setEndDate] = useState(new Date())
+  // const [vehicleType, setVehicleType] = useState('car')
 
   const dispatch = useDispatch()
 
-  let refStartDate = new Date()
-  let refEndDate
+  // let refStartDate = new Date()
+  // let refEndDate
 
-  const setMinStartDate = () => {
-    let startDateTime = moment(new Date())
-    startDateTime.minutes(Math.ceil(startDateTime.minutes() / 15) * 15)
-    setStartDate(startDateTime._d)
-    refStartDate = startDateTime._d
+  // const setMinStartDate = () => {
+  //   let startDateTime = moment(new Date())
+  //   startDateTime.minutes(Math.ceil(startDateTime.minutes() / 15) * 15)
+  //   setStartDate(startDateTime._d)
+  //   refStartDate = startDateTime._d
 
-    let endDateTime = moment(startDateTime).add(60, 'minutes')
-    setEndDate(endDateTime._d)
-    refEndDate = endDateTime._d
-  }
+  //   let endDateTime = moment(startDateTime).add(60, 'minutes')
+  //   setEndDate(endDateTime._d)
+  //   refEndDate = endDateTime._d
+  // }
+
+  // const setMinEndDate = (refDate) => {
+  //   // refEndDate = moment(startDate).add(moment.duration(60, 'minutes'))._d
+  //   setEndDate(moment(refDate).add(moment.duration(60, 'minutes'))._d)
+  // }
+
+  
 
   useEffect(() => {
     setMinStartDate()
   }, [])
-
-  const setMinEndDate = (refDate) => {
-    refEndDate = moment(startDate).add(moment.duration(60, 'minutes'))._d
-    setEndDate(moment(refDate).add(moment.duration(60, 'minutes'))._d)
-  }
 
   const [SDT, setSDT] = useState(false)
   const [SET, setSET] = useState(false)
@@ -75,7 +84,7 @@ const Home = () => {
   return (
     <>
       <Container>
-        <Typography textAlign="center" variant="h1" pt={4} pb={2}>
+        <Typography textAlign="center" variant="h1" p={2}>
           Park Your
           <span style={{ color: theme.palette.primary.main }}> Vehicle</span>
         </Typography>
@@ -89,12 +98,11 @@ const Home = () => {
 
         <Grid
           container
-          pt={2}
+          pt={1.5}
           pb={3}
           px={3}
           mt={2}
           rowSpacing={2}
-          colSpacing={2}
           style={{
             background: theme.palette.primary.light,
             borderRadius: '10px',
@@ -139,7 +147,7 @@ const Home = () => {
                 disablePast
                 minDateTime={refEndDate}
                 onChange={(newValue) => {
-                  setEndDate(newValue)
+                  newValue > endDate && setEndDate(newValue)
                 }}
                 open={SET}
                 onClose={() => setSET(!SET)}
@@ -188,7 +196,7 @@ const Home = () => {
             <GeoInput />
           </Grid>
 
-          <Grid item md={2} xs={12}>
+          <Grid item md={1.95} xs={12}>
             <LoadingButton
               loading={loading}
               text="search"

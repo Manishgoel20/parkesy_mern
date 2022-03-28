@@ -1,35 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-svg#freepik_stories-parking:not(.animated) .animable {
-  opacity: 0; }
-
-svg#freepik_stories-parking.animated #freepik--Clouds--inject-16 {
-  animation: 3s Infinite linear floating;
-  animation-delay: 0s; }
-
-svg#freepik_stories-parking.animated #freepik--Sun--inject-16 {
-  animation: 6s Infinite linear floating;
-  animation-delay: 0s; }
-
-svg#freepik_stories-parking.animated #freepik--Locator--inject-16 {
-  animation: 1.5s Infinite linear floating;
-  animation-delay: 0s; }
-
-.animator-hidden {
-  display: none; }
-
-.inputField {
-  position: relative; }
-  .inputField__icon {
-    position: absolute;
-    cursor: pointer;
-    transform: translateY(-100%);
-    right: 0; }
-
-.link, .link:link, .link:visited {
-  text-decoration: none;
-  color: inherit; }
-
 /*
 breakpoint argument classes-
 -phone      
@@ -146,6 +116,59 @@ body {
 .u-center-text {
   text-align: center !important; }
 
+.u-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+svg#freepik_stories-parking:not(.animated) .animable {
+  opacity: 0; }
+
+svg#freepik_stories-parking.animated #freepik--Clouds--inject-16 {
+  animation: 3s Infinite linear floating;
+  animation-delay: 0s; }
+
+svg#freepik_stories-parking.animated #freepik--Sun--inject-16 {
+  animation: 6s Infinite linear floating;
+  animation-delay: 0s; }
+
+svg#freepik_stories-parking.animated #freepik--Locator--inject-16 {
+  animation: 1.5s Infinite linear floating;
+  animation-delay: 0s; }
+
+.animator-hidden {
+  display: none; }
+
+.inputField {
+  position: relative; }
+  .inputField__icon {
+    position: absolute;
+    cursor: pointer;
+    transform: translateY(-100%);
+    right: 0; }
+
+.link, .link:link, .link:visited {
+  text-decoration: none;
+  color: inherit; }
+
+.showDetails {
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  line-height: 0.5 !important;
+  display: flex;
+  flex-direction: column;
+  svg-font-size: 0.5rem; }
+  .showDetails__text {
+    font-weight: 600 !important;
+    font-size: 1.4rem !important;
+    color: #333;
+    line-height: 1 !important;
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+
 .auth {
   height: 100vh;
   width: 100vw; }
@@ -165,11 +188,18 @@ body {
       .auth__bgFront {
         display: none; } }
 
+.avatar {
+  border: 2px solid #ffbf1a; }
+
 .appbar__transparent {
   display: flex;
   justify-content: center;
-  background: transparent !important;
+  background: #fff !important;
   transition: all 0.3s ease !important; }
+  @media (max-width: 56.25em) {
+    .appbar__transparent {
+      background: transparent !important;
+      box-shadow: none !important; } }
 
 .appbar__colored {
   display: flex;
@@ -177,6 +207,10 @@ body {
   background: #fff !important;
   transition: all 0.3s ease !important;
   box-shadow: 0.2px 0.2px 5px white !important; }
+  @media (max-width: 56.25em) {
+    .appbar__colored {
+      background: transparent !important;
+      box-shadow: none !important; } }
 
 .geocoder_container {
   display: flex;
@@ -209,6 +243,22 @@ body {
     border: 1px solid #ec8f62 !important;
     outline: none !important; }
 
+.mapbox_container {
+  height: 100vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden; }
+  @media (max-width: 56.25em) {
+    .mapbox_container {
+      overflow: hidden;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100vw; } }
+
 .dateTime {
   background: #fff;
   height: auto;
@@ -219,3 +269,27 @@ body {
   padding: 0.5rem 1rem;
   color: #333;
   font-size: 1.6rem; }
+
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%; }
+
+.box .row.header {
+  flex: 0 1 auto; }
+
+.box .row.content {
+  flex: 1 1 auto; }
+
+.box .row.footer {
+  flex: 0 1 40px; }
+
+.details {
+  position: absolute;
+  bottom: 0;
+  width: 95vw;
+  background: #ffecba;
+  border-radius: 2rem 0 0 0;
+  cursor: pointer;
+  border: 0.1rem solid #ffbf1a;
+  box-shadow: #ffecba 0px 30px 60px -12px, #ffecba 0px 18px 36px -18px; }

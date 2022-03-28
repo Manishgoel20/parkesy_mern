@@ -1,0 +1,10 @@
+.details {
+  position: absolute;
+  bottom: 0;
+  width: 95vw;
+  background: $primeLight;
+  border-radius: 2rem 0 0 0;
+  cursor: pointer;
+  border: 0.1rem solid $primeMain;
+  box-shadow: $primeLight 0px 30px 60px -12px, $primeLight 0px 18px 36px -18px;
+}

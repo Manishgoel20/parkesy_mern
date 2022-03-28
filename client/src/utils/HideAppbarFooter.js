@@ -13,3 +13,10 @@ export const ShowAppbarFooter = () => {
   appbar.style.display = 'initial'
   // footer.style.display = 'initial'
 }
+
+export const HideBody = () => {
+  document.body.style.overflow = 'hidden'
+}
+export const ShowBody = () => {
+  document.body.style.overflow = 'initial'
+}
