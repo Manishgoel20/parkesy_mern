@@ -1,7 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
-import GeoInput from '../components/GeoInput'
 import Details from '../layouts/Details'
 import { HideBody, ShowBody } from '../utils/HideAppbarFooter'
 

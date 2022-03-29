@@ -147,6 +147,27 @@ svg#freepik_stories-parking.animated #freepik--Locator--inject-16 {
     transform: translateY(-100%);
     right: 0; }
 
+.geocoder {
+  position: relative; }
+  .geocoder__controller {
+    position: relative; }
+  .geocoder__input {
+    width: 95%;
+    font-style: inherit;
+    color: inherit;
+    font-family: inherit;
+    outline: none;
+    border: none;
+    font-weight: 500; }
+  .geocoder__autocomplete {
+    position: absolute;
+    top: 105%;
+    left: 0; }
+  .geocoder__loc svg {
+    transition: all 0.2s ease; }
+    .geocoder__loc svg:hover {
+      color: #8e24aa; }
+
 .link, .link:link, .link:visited {
   text-decoration: none;
   color: inherit; }
@@ -259,7 +280,8 @@ svg#freepik_stories-parking.animated #freepik--Locator--inject-16 {
       right: 0;
       width: 100vw; } }
 
-.dateTime {
+.dateTime,
+.geocoder {
   background: #fff;
   height: auto;
   width: 100%;

@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setCoordinates } from '../globalStore/ducks/search'
 
 const CurrentLocation = () => {
-  const [lat, setLat] = useState(null)
-  const [lng, setLng] = useState(null)
   const [status, setStatus] = useState(null)
+  const dispatch = useDispatch()
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -13,8 +14,12 @@ const CurrentLocation = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setStatus(null)
-          setLat(position.coords.latitude)
-          setLng(position.coords.longitude)
+          dispatch(
+            setCoordinates({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            })
+          )
         },
         () => {
           setStatus('Unable to retrieve your location')
@@ -28,8 +33,6 @@ const CurrentLocation = () => {
       <button onClick={getLocation}>Get Location</button>
       <h1>Coordinates</h1>
       <p>{status}</p>
-      {lat && <p>Latitude: {lat}</p>}
-      {lng && <p>Longitude: {lng}</p>}
     </>
   )
 }

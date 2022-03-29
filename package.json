@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/ayanluap/parkesy_mern#readme",
   "dependencies": {
+    "@mapbox/mapbox-sdk": "^0.13.3",
     "apollo-server": "^3.6.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",
@@ -37,6 +38,7 @@
     "hpp": "^0.2.3",
     "html-to-text": "^8.1.0",
     "jsonwebtoken": "^8.5.1",
+    "mapbox-gl": "^2.7.1",
     "moment": "^2.29.1",
     "mongoose": "^6.2.6",
     "morgan": "^1.10.0",

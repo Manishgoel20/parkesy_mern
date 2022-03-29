@@ -4,15 +4,21 @@ import { Box } from '@mui/system'
 import ShowDetails from '../components/ShowDetails'
 import Modal from '../components/Modal'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const Details = () => {
+  const { locationName, startDateTime, endDateTime, vehicle } = useSelector(
+    (state) => state.search
+  )
   const [isOpen, setIsOpen] = useState(false)
+
   const handleModalOpen = () => {
     setIsOpen(true)
   }
   const handleModalClose = () => {
     setIsOpen(false)
   }
+
   return (
     <>
       <Box m={1} p={1} className="details">
@@ -24,7 +30,7 @@ const Details = () => {
                 color="common.dark"
                 className="showDetails__text"
               >
-                Signature bridge, Delhi
+                {locationName}
               </Typography>
             </ShowDetails>
           </Grid>
@@ -37,7 +43,7 @@ const Details = () => {
                     color="common.dark"
                     className="showDetails__text"
                   >
-                    Thu 24 Mar 2022
+                    {startDateTime.toDateString()}
                   </Typography>
                   <Typography
                     variant="overline"
@@ -45,7 +51,15 @@ const Details = () => {
                     className="showDetails__text"
                     ml={1}
                   >
-                    22:30
+                    {`${
+                      startDateTime.getHours() < 10
+                        ? '0' + startDateTime.getHours()
+                        : startDateTime.getHours()
+                    }:${
+                      startDateTime.getMinutes() < 10
+                        ? '0' + startDateTime.getMinutes()
+                        : startDateTime.getMinutes()
+                    }`}
                   </Typography>
                 </Box>
 
@@ -55,7 +69,7 @@ const Details = () => {
                     color="common.dark"
                     className="showDetails__text"
                   >
-                    Thu 25 Mar 2022
+                    {endDateTime.toDateString()}
                   </Typography>
                   <Typography
                     variant="overline"
@@ -63,7 +77,15 @@ const Details = () => {
                     className="showDetails__text"
                     ml={1}
                   >
-                    22:30
+                    {`${
+                      endDateTime.getHours() < 10
+                        ? '0' + endDateTime.getHours()
+                        : endDateTime.getHours()
+                    }:${
+                      endDateTime.getMinutes() < 10
+                        ? '0' + endDateTime.getMinutes()
+                        : endDateTime.getMinutes()
+                    }`}
                   </Typography>
                 </Box>
               </Box>
@@ -76,7 +98,7 @@ const Details = () => {
                 color="common.dark"
                 className="showDetails__text"
               >
-                Car
+                {vehicle}
               </Typography>
             </ShowDetails>
           </Grid>

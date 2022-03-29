@@ -12,7 +12,8 @@ import {
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DesktopDateTimePicker from '@mui/lab/DesktopDateTimePicker/DesktopDateTimePicker'
 import DateAdapter from '@mui/lab/AdapterDateFns'
@@ -21,12 +22,21 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus'
 
 import Homeimg from '../assets/images/home.png'
-import GeoInput from '../components/GeoInput'
-import moment from 'moment'
+// import GeoInput from '../components/GeoInput'
 import LoadingButton from '../components/LoadingButton'
 import DateTimeInput from '../components/DateTimeInput'
 import { setToast } from '../globalStore/ducks/toast'
-import { setMinStartDate } from '../utils/Date'
+import { setMinEndDate, setMinStartDate } from '../utils/Date'
+import {
+  setEDT,
+  setEndDateTime,
+  setRefEndDateTime,
+  setRefStartDateTime,
+  setSDT,
+  setStartDateTime,
+  setVehicle,
+} from '../globalStore/ducks/search'
+import CustomGeocoder from '../components/CustomGeocoder'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,39 +57,36 @@ const Home = () => {
   const classes = useStyles()
 
   const [loading, setLoading] = useState(false)
-  // const [startDate, setStartDate] = useState(new Date())
-  // const [endDate, setEndDate] = useState(new Date())
-  // const [vehicleType, setVehicleType] = useState('car')
 
   const dispatch = useDispatch()
+  const {
+    startDateTime,
+    endDateTime,
+    refStartDate,
+    refEndDate,
+    vehicle,
+    SDT,
+    EDT,
+  } = useSelector((state) => state.search)
 
-  // let refStartDate = new Date()
-  // let refEndDate
+  const initDates = setMinStartDate()
 
-  // const setMinStartDate = () => {
-  //   let startDateTime = moment(new Date())
-  //   startDateTime.minutes(Math.ceil(startDateTime.minutes() / 15) * 15)
-  //   setStartDate(startDateTime._d)
-  //   refStartDate = startDateTime._d
-
-  //   let endDateTime = moment(startDateTime).add(60, 'minutes')
-  //   setEndDate(endDateTime._d)
-  //   refEndDate = endDateTime._d
-  // }
-
-  // const setMinEndDate = (refDate) => {
-  //   // refEndDate = moment(startDate).add(moment.duration(60, 'minutes'))._d
-  //   setEndDate(moment(refDate).add(moment.duration(60, 'minutes'))._d)
-  // }
-
-  
+  const setAllDateRefs = () => {
+    dispatch(setStartDateTime(initDates.startDateTime))
+    dispatch(setEndDateTime(initDates.endDateTime))
+    dispatch(setRefStartDateTime(initDates.refStartDate))
+    dispatch(setRefEndDateTime(initDates.refEndDate))
+  }
 
   useEffect(() => {
-    setMinStartDate()
+    setAllDateRefs()
   }, [])
 
-  const [SDT, setSDT] = useState(false)
-  const [SET, setSET] = useState(false)
+  const submitHandler = (e) => {
+    e.preventDefault()
+
+    console.log('submitted')
+  }
 
   return (
     <>
@@ -95,116 +102,126 @@ const Home = () => {
           consectetur adipisicing elit. Dolore dolores cupiditate dolorum,
           officiis maxime delectus.
         </Typography>
+        <form onSubmit={submitHandler}>
+          <Grid
+            container
+            pt={1.5}
+            pb={3}
+            px={3}
+            mt={2}
+            rowSpacing={2}
+            style={{
+              background: theme.palette.primary.light,
+              borderRadius: '10px',
+              width: '100%',
+              marginLeft: 'initial',
+            }}
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <LocalizationProvider dateAdapter={DateAdapter}>
+              <Grid item md={4} xs={12}>
+                <DesktopDateTimePicker
+                  value={startDateTime}
+                  disablePast
+                  minutesStep={15}
+                  onChange={(newVal) => {
+                    if (newVal > refStartDate) {
+                      dispatch(setStartDateTime(newVal))
+                      const endVal = setMinEndDate(newVal).endDateTime
+                      dispatch(setEndDateTime(endVal))
+                    } else setAllDateRefs()
+                  }}
+                  open={SDT}
+                  onClose={() => dispatch(setSDT())}
+                  renderInput={(params) => (
+                    <>
+                      <TextField
+                        {...params}
+                        style={{ visibility: 'hidden', position: 'absolute' }}
+                      />
+                      <Box onClick={() => dispatch(setSDT())}>
+                        <DateTimeInput
+                          value={startDateTime}
+                          label="check in time"
+                        />
+                      </Box>
+                    </>
+                  )}
+                />
+              </Grid>
 
-        <Grid
-          container
-          pt={1.5}
-          pb={3}
-          px={3}
-          mt={2}
-          rowSpacing={2}
-          style={{
-            background: theme.palette.primary.light,
-            borderRadius: '10px',
-            width: '100%',
-            marginLeft: 'initial',
-          }}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <LocalizationProvider dateAdapter={DateAdapter}>
-            <Grid item md={4} xs={12}>
-              <DesktopDateTimePicker
-                value={startDate}
-                disablePast
-                minutesStep={15}
-                onChange={(newVal) => {
-                  if (newVal > refStartDate) {
-                    setStartDate(newVal)
-                    setMinEndDate(newVal)
-                  } else setMinStartDate()
-                }}
-                open={SDT}
-                onClose={() => setSDT(!SDT)}
-                renderInput={(params) => (
-                  <>
-                    <TextField
-                      {...params}
-                      style={{ visibility: 'hidden', position: 'absolute' }}
-                    />
-                    <Box onClick={() => setSDT(!SDT)}>
-                      <DateTimeInput value={startDate} label="check in time" />
-                    </Box>
-                  </>
-                )}
-              />
+              <Grid item md={4} xs={12}>
+                <DesktopDateTimePicker
+                  value={endDateTime}
+                  minutesStep={15}
+                  disablePast
+                  minDateTime={refEndDate}
+                  onChange={(newVal) => {
+                    newVal > refEndDate && dispatch(setEndDateTime(newVal))
+                  }}
+                  open={EDT}
+                  onClose={() => dispatch(setEDT())}
+                  renderInput={(params) => (
+                    <>
+                      <TextField
+                        {...params}
+                        style={{ visibility: 'hidden', position: 'absolute' }}
+                      />
+                      <Box onClick={() => dispatch(setEDT())}>
+                        <DateTimeInput
+                          value={endDateTime}
+                          label="check out time"
+                        />
+                      </Box>
+                    </>
+                  )}
+                />
+              </Grid>
+            </LocalizationProvider>
+
+            <Grid item md={3.7} xs={12}>
+              <FormControl variant="outlined" className={classes.root}>
+                <InputLabel id="vehicleType" color="tertiary">
+                  Vehicle Type
+                </InputLabel>
+                <Select
+                  labelId="vehicleType"
+                  name="vehicleType"
+                  value={vehicle}
+                  onChange={(e) => dispatch(setVehicle(e.target.value))}
+                  label="vehicleType"
+                  color="tertiary"
+                >
+                  <MenuItem value="bike">
+                    <DirectionsBikeIcon style={{ marginRight: '10px' }} /> Bike
+                  </MenuItem>
+                  <MenuItem value="car">
+                    <DirectionsCarIcon style={{ marginRight: '10px' }} /> Car
+                  </MenuItem>
+                  <MenuItem value="bus">
+                    <DirectionsBusIcon style={{ marginRight: '10px' }} /> Bus
+                  </MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
 
-            <Grid item md={4} xs={12}>
-              <DesktopDateTimePicker
-                value={endDate}
-                minutesStep={15}
-                disablePast
-                minDateTime={refEndDate}
-                onChange={(newValue) => {
-                  newValue > endDate && setEndDate(newValue)
-                }}
-                open={SET}
-                onClose={() => setSET(!SET)}
-                renderInput={(params) => (
-                  <>
-                    <TextField
-                      {...params}
-                      style={{ visibility: 'hidden', position: 'absolute' }}
-                    />
-                    <Box onClick={() => setSET(!SET)}>
-                      <DateTimeInput value={endDate} label="check out time" />
-                    </Box>
-                  </>
-                )}
-              />
+            <Grid item md={10} xs={12}>
+              {/* <GeoInput /> */}
+              <CustomGeocoder id="homeGeocoder" label="parking area near me?" />
             </Grid>
-          </LocalizationProvider>
 
-          <Grid item md={3.7} xs={12}>
-            <FormControl variant="outlined" className={classes.root}>
-              <InputLabel id="vehicleType" color="tertiary">
-                Vehicle Type
-              </InputLabel>
-              <Select
-                labelId="vehicleType"
-                name="vehicleType"
-                value={vehicleType}
-                onChange={(e) => setVehicleType(e.target.value)}
-                label="vehicleType"
+            <Grid item md={1.8} xs={12}>
+              <LoadingButton
+                loading={loading}
+                text="search"
                 color="tertiary"
-              >
-                <MenuItem value="bike">
-                  <DirectionsBikeIcon style={{ marginRight: '10px' }} /> Bike
-                </MenuItem>
-                <MenuItem value="car">
-                  <DirectionsCarIcon style={{ marginRight: '10px' }} /> Car
-                </MenuItem>
-                <MenuItem value="bus">
-                  <DirectionsBusIcon style={{ marginRight: '10px' }} /> Bus
-                </MenuItem>
-              </Select>
-            </FormControl>
+                size="medium"
+                lineHeight={3.4}
+              />
+            </Grid>
           </Grid>
-
-          <Grid item md={10} xs={12}>
-            <GeoInput />
-          </Grid>
-
-          <Grid item md={1.95} xs={12}>
-            <LoadingButton
-              loading={loading}
-              text="search"
-              color="tertiary"
-              size="small"
-            />
-          </Grid>
-        </Grid>
+        </form>
       </Container>
       <Box textAlign="center">
         <img src={Homeimg} width="90%" alt="home" />
