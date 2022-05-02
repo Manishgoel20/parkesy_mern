@@ -39,7 +39,9 @@ export const getCheckoutSession = asyncHandler(async (req, res, next) => {
     payment_method_types: ['card'],
     success_url: `${req.protocol}://${req.get(
       'host'
-    )}/api/v1/bookings/me?parkadeId=${parkadeId}&userId=${req.user._id}&email=${
+    )}/api/v1/bookings/my-bookings?parkadeId=${parkadeId}&userId=${
+      req.user._id
+    }&email=${
       req.user.email
     }&st=${st}&et=${et}&vehicle=${vehicle}&price=${amount}&vehicleNum=${vehicleNum}`,
 
@@ -66,6 +68,8 @@ export const createBookingCheckout = asyncHandler(async (req, res, next) => {
     req.query
   if (!parkadeId && !userId && !price) return next()
 
+  const key = Math.floor(Math.random() * 100000000) + 1
+
   const booking = await Booking.create({
     parkade: parkadeId,
     user: userId,
@@ -74,6 +78,7 @@ export const createBookingCheckout = asyncHandler(async (req, res, next) => {
     vehicleType: vehicle,
     startDateTime: st,
     endDateTime: et,
+    entryKey: key,
   })
 
   if (!booking)
@@ -81,13 +86,11 @@ export const createBookingCheckout = asyncHandler(async (req, res, next) => {
       new AppError(`Something went wrong while booking! Please try again!`, 403)
     )
 
-  const key = await booking.createEntryKey()
-
   // send a nice mail
 
   res.status(200).json({
     status: 'success',
     message: `Reset token is sent to ${email}!`,
-    key,
+    data: { booking },
   })
 })

@@ -4,13 +4,6 @@ import { AppError, asyncHandler } from '../middlewares/Errorhandler.js'
 import { Booking } from '../models/bookingModel.js'
 import { Parkade } from '../models/parkadeModel.js'
 
-function greeting(st) {
-  const hour = st.hour()
-  if (hour > 16) return 2
-  if (hour > 11) return 1
-  return 0
-}
-
 /////////////////////////// PARKADE NEARBY
 export const getParkadesNearbyAvailable = asyncHandler(
   async (req, res, next) => {
@@ -30,6 +23,7 @@ export const getParkadesNearbyAvailable = asyncHandler(
           distanceMultiplier: 0.001,
         },
       },
+      { $match: { approved: true } },
       {
         $lookup: {
           from: 'bookings',

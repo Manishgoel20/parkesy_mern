@@ -36,8 +36,9 @@ const bookingSchema = new mongoose.Schema(
     bookingStatus: {
       type: String,
       enum: {
-        values: ['booked', 'cancelled', 'completed'],
-        message: 'Booking status either: Booked, Cancelled or Completed',
+        values: ['booked', 'ongoing', 'cancelled', 'completed'],
+        message:
+          'Booking status either: booked, ongoing, cancelled or completed',
       },
       default: 'booked',
     },
@@ -58,14 +59,6 @@ const bookingSchema = new mongoose.Schema(
 bookingSchema.index({ startDateTime: 1, endDateTime: 1 })
 bookingSchema.index({ bookingStatus: 1 })
 bookingSchema.index({ vehicleType: 1 })
-
-bookingSchema.methods.createEntryKey = async function () {
-  const token = crypto.randomBytes(8).toString('hex')
-
-  const encryptedToken = crypto.createHash('sha256').update(token).digest('hex')
-  this.entryKey = encryptedToken
-  return token
-}
 
 // QUERY MIDDLEWARES
 bookingSchema.pre(/^find/, function (next) {

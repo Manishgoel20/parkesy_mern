@@ -120,6 +120,16 @@ body {
   height: 40px;
   cursor: pointer; }
 
+.mb--marker {
+  width: 30px;
+  height: 40px;
+  cursor: pointer; }
+
+.mb--marker__locate {
+  width: 30px;
+  height: 35px;
+  cursor: pointer; }
+
 .u-center-text {
   text-align: center !important; }
 

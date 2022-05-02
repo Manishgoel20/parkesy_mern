@@ -20,12 +20,3 @@ export const HideBody = () => {
 export const ShowBody = () => {
   document.body.style.overflow = 'initial'
 }
-
-// export const HideBody = () => {
-//   document.body.style.height = '100vh'
-//   document.body.style.width = '100vw'
-// }
-// export const ShowBody = () => {
-//   document.body.style.height = 'initial'
-//   document.body.style.width = 'initial'
-// }

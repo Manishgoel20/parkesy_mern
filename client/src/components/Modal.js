@@ -33,7 +33,7 @@ const Modal = ({ children, title, isOpen, handleClose, btnText }) => {
           variant="contained"
           fullWidth
         >
-          search
+          {btnText ? btnText : 'search'}
         </Button>
       </DialogActions>
     </Dialog>

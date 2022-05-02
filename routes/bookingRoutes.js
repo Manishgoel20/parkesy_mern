@@ -11,6 +11,6 @@ router
   .route('/checkout-session/:parkadeId/:st/:et/:vehicle/:vehicleNum')
   .get(protect, getCheckoutSession)
 
-router.route('/me').get(createBookingCheckout) // MY BOOKINGs KRNA H ABHI V
+router.route('/my-bookings').get(createBookingCheckout) // MY BOOKINGs KRNA H ABHI V
 
 export default router
