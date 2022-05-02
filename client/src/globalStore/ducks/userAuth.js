@@ -23,7 +23,7 @@ export const checkAuth = () => {
 
     axios(options)
       .then((res) => {
-        dispatch({ type: CHECK_AUTH_REQUEST, payload: res.data })
+        dispatch({ type: CHECK_AUTH_REQUEST, payload: res.data.data })
       })
       .catch((err) => {
         dispatch(setToast(true, 'error', `${err.response.data.message}`))
@@ -45,7 +45,7 @@ export const login = ({ siEmail, siPassword }, resetForm, setSubmitting) => {
 
     axios(options)
       .then((res) => {
-        dispatch({ type: LOGIN_REQUEST, payload: res.data })
+        dispatch({ type: LOGIN_REQUEST, payload: res.data.data })
         resetForm()
       })
       .catch((err) => {
@@ -64,9 +64,11 @@ export const signup = (data) => {
     }
 
     axios(options).then((res) =>
-      dispatch({ type: SIGNUP_REQUEST, payload: res.data }).catch((err) => {
-        dispatch(setToast(true, 'error', `${err.response.data.message}`))
-      })
+      dispatch({ type: SIGNUP_REQUEST, payload: res.data.data }).catch(
+        (err) => {
+          dispatch(setToast(true, 'error', `${err.response.data.message}`))
+        }
+      )
     )
   }
 }
@@ -78,19 +80,19 @@ const reducer = (state = initialState, action) => {
     case 'LOGIN_REQUEST':
       return {
         ...state,
-        userInfo: action.payload,
+        userInfo: action.payload.user,
         isAuth: true,
       }
     case 'CHECK_AUTH_REQUEST':
       return {
         ...state,
-        userInfo: action.payload,
+        userInfo: action.payload.user,
         isAuth: true,
       }
     case 'SIGNUP_REQUEST':
       return {
         ...state,
-        userInfo: action.payload,
+        userInfo: action.payload.user,
         isAuth: true,
       }
 

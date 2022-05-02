@@ -53,19 +53,10 @@ const userSchema = new mongoose.Schema(
       },
       default: 'user',
     },
-    balanceDue: Number,
-    favorites: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'parkade',
-        validate: {
-          validator: function (val) {
-            return val.length <= 5
-          },
-          message: '{PATH} exceeds the limit of 10',
-        },
-      },
-    ],
+    balanceDue: {
+      type: Number,
+      default: 0,
+    },
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetTokenExpiresIn: Date,

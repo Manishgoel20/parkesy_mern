@@ -7,7 +7,7 @@ const SET_GEO_LOCATION = 'SET_GEO_LOCATION'
 // INITIAL STATE
 const initialState = {
   autoComplete: [],
-  place: null,
+  place: '',
   lat: null,
   lng: null,
 }
@@ -39,7 +39,6 @@ export const getPlaceName = ({ lat, lng }) => {
     axios(options)
       .then((res) => {
         dispatch({ type: GET_PLACE_NAME, payload: res.data })
-        console.log(res.data)
       })
       .catch((err) => console.log(err))
   }

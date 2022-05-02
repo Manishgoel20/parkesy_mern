@@ -12,11 +12,11 @@ import {
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import DesktopDateTimePicker from '@mui/lab/DesktopDateTimePicker/DesktopDateTimePicker'
 import DateAdapter from '@mui/lab/AdapterDateFns'
+import DesktopDateTimePicker from '@mui/lab/DesktopDateTimePicker/DesktopDateTimePicker'
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike'
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus'
@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const theme = useTheme()
   const classes = useStyles()
+  const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
 
@@ -68,6 +69,7 @@ const Home = () => {
     SDT,
     EDT,
   } = useSelector((state) => state.search)
+  const { lat, lng } = useSelector((state) => state.mapbox)
 
   const initDates = setMinStartDate()
 
@@ -84,7 +86,7 @@ const Home = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-
+    navigate(`/search/${lat}/${lng}/${startDateTime}/${endDateTime}/${vehicle}`)
     console.log('submitted')
   }
 
@@ -158,7 +160,9 @@ const Home = () => {
                   disablePast
                   minDateTime={refEndDate}
                   onChange={(newVal) => {
-                    newVal > refEndDate && dispatch(setEndDateTime(newVal))
+                    newVal >= refEndDate &&
+                      newVal > startDateTime &&
+                      dispatch(setEndDateTime(newVal))
                   }}
                   open={EDT}
                   onClose={() => dispatch(setEDT())}
@@ -215,9 +219,11 @@ const Home = () => {
               <LoadingButton
                 loading={loading}
                 text="search"
-                color="tertiary"
+                color="primary"
+                textColor="common.dark"
                 size="medium"
-                lineHeight={3.4}
+                lineHeight={3.6}
+                fullWidth
               />
             </Grid>
           </Grid>

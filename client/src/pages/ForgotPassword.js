@@ -49,8 +49,8 @@ const ForgotPassword = () => {
           />
         </Box>
 
-        <Box mt={3}>
-          <LoadingButton loading={false} text="forgot password" />
+        <Box mt={2}>
+          <LoadingButton fullWidth loading={false} text="forgot password" />
         </Box>
         <Box py={1} textAlign="right" display="flex">
           <Typography variant="body2" color="custom.dark">

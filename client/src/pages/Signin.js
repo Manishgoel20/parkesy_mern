@@ -32,7 +32,7 @@ const Signin = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+  const redirect = location.state?.from?.pathname || '/'
 
   useEffect(() => {
     if (userInfo) {
@@ -106,9 +106,14 @@ const Signin = () => {
           </Typography>
         </Box>
 
-        <Box mt={3}>
-          <LoadingButton loading={formik.isSubmitting} text="sign in" />
+        <Box mt={1}>
+          <LoadingButton
+            loading={formik.isSubmitting}
+            text="sign in"
+            fullWidth
+          />
         </Box>
+
         <Box py={1} textAlign="right" display="flex">
           <Typography variant="body2" color="custom.dark">
             Don't have any account yet?

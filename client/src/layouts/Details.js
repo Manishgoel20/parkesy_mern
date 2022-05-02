@@ -3,14 +3,25 @@ import { Box } from '@mui/system'
 
 import ShowDetails from '../components/ShowDetails'
 import Modal from '../components/Modal'
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPlaceName } from '../globalStore/ducks/mapbox'
 
-const Details = () => {
-  const { locationName, startDateTime, endDateTime, vehicle } = useSelector(
-    (state) => state.search
-  )
+const Details = ({ params }) => {
+  const {
+    stTime: startDateTime,
+    enTime: endDateTime,
+    vehicle,
+    lat,
+    lng,
+  } = params
+  const { place } = useSelector((state) => state.mapbox)
   const [isOpen, setIsOpen] = useState(false)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getPlaceName({ lat, lng }))
+  }, [lat, lng])
 
   const handleModalOpen = () => {
     setIsOpen(true)
@@ -30,11 +41,11 @@ const Details = () => {
                 color="common.dark"
                 className="showDetails__text"
               >
-                {locationName}
+                {place}
               </Typography>
             </ShowDetails>
           </Grid>
-          <Grid item md={4} xs={5}>
+          <Grid item md={4} xs={5} width="95%" className="u-truncate">
             <ShowDetails ques="check-in and check-out time">
               <Box display="flex">
                 <Box width="50%" className="u-truncate">
@@ -43,7 +54,7 @@ const Details = () => {
                     color="common.dark"
                     className="showDetails__text"
                   >
-                    {startDateTime.toDateString()}
+                    {new Date(startDateTime).toDateString()}
                   </Typography>
                   <Typography
                     variant="overline"
@@ -52,13 +63,13 @@ const Details = () => {
                     ml={1}
                   >
                     {`${
-                      startDateTime.getHours() < 10
-                        ? '0' + startDateTime.getHours()
-                        : startDateTime.getHours()
+                      new Date(startDateTime).getHours() < 10
+                        ? '0' + new Date(startDateTime).getHours()
+                        : new Date(startDateTime).getHours()
                     }:${
-                      startDateTime.getMinutes() < 10
-                        ? '0' + startDateTime.getMinutes()
-                        : startDateTime.getMinutes()
+                      new Date(startDateTime).getMinutes() < 10
+                        ? '0' + new Date(startDateTime).getMinutes()
+                        : new Date(startDateTime).getMinutes()
                     }`}
                   </Typography>
                 </Box>
@@ -69,7 +80,7 @@ const Details = () => {
                     color="common.dark"
                     className="showDetails__text"
                   >
-                    {endDateTime.toDateString()}
+                    {new Date(endDateTime).toDateString()}
                   </Typography>
                   <Typography
                     variant="overline"
@@ -78,13 +89,13 @@ const Details = () => {
                     ml={1}
                   >
                     {`${
-                      endDateTime.getHours() < 10
-                        ? '0' + endDateTime.getHours()
-                        : endDateTime.getHours()
+                      new Date(endDateTime).getHours() < 10
+                        ? '0' + new Date(endDateTime).getHours()
+                        : new Date(endDateTime).getHours()
                     }:${
-                      endDateTime.getMinutes() < 10
-                        ? '0' + endDateTime.getMinutes()
-                        : endDateTime.getMinutes()
+                      new Date(endDateTime).getMinutes() < 10
+                        ? '0' + new Date(endDateTime).getMinutes()
+                        : new Date(endDateTime).getMinutes()
                     }`}
                   </Typography>
                 </Box>

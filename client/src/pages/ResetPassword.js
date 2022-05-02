@@ -97,7 +97,7 @@ const ResetPassword = () => {
         </Box>
 
         <Box mt={3}>
-          <LoadingButton loading={false} text="reset password" />
+          <LoadingButton fullWidth loading={false} text="reset password" />
         </Box>
       </form>
     </Grid>

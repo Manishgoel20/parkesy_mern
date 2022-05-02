@@ -71,6 +71,16 @@ export const login = asyncHandler(async (req, res, next) => {
   createAndSendToken(user, 200, req, res)
 })
 
+//////////////////////////////////// SIGNout ////////////////////////////////////////////
+export const logout = asyncHandler(async (req, res, next) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 5 * 1000),
+    httpOnly: true,
+  })
+
+  res.status(200).json({ status: 'success' })
+})
+
 ////////////////////////////////////////////////////////////////////////////////
 export const protect = asyncHandler(async (req, res, next) => {
   let token
@@ -107,6 +117,32 @@ export const protect = asyncHandler(async (req, res, next) => {
   req.user = user
   next()
 })
+
+////////////////////////////////////////////////////////////////////////////////
+// Only for rendered pages no error
+export const isLoggedIn = async (req, res, next) => {
+  if (req.cookies.jwt) {
+    try {
+      // Decode/Verify the token and found the ID
+      const verified = await jwt.verify(req.cookies.jwt, process.env.JWT_SECRET)
+
+      // Is user still exist after login
+      const user = await User.findById(verified.id)
+      if (!user) return next()
+
+      // is user changed the password after token was issued?
+      const isPassChanged = user.passwordChangedAfter(verified.iat)
+      if (isPassChanged) return next()
+
+      //There is a logged in user
+      res.locals.user = currentUser
+      return next()
+    } catch (err) {
+      return next()
+    }
+  }
+  next()
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 export const accessTo = (...roles) => {

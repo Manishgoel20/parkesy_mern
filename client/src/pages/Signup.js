@@ -207,7 +207,7 @@ const Signup = () => {
         </Box>
 
         <Box mt={3}>
-          <LoadingButton loading={false} text="sign up" />
+          <LoadingButton fullWidth loading={false} text="sign up" />
         </Box>
         <Box py={1} textAlign="right" display="flex">
           <Typography variant="body2" color="custom.dark">

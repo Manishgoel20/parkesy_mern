@@ -14,3 +14,11 @@ body {
   right: 0;
   top: 0;
 }
+
+.marker {
+  background-image: url('assets/images/MarkerImg.png');
+  background-size: cover;
+  width: 32px;
+  height: 40px;
+  cursor: pointer;
+}

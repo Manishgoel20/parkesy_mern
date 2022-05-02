@@ -49,11 +49,20 @@ export const theme = createTheme({
       letterSpacing: -1,
       fontSize: 60,
     },
+    h2: {},
     h3: {},
     h4: {},
     h5: {},
-    h6: {},
-    body1: {},
+    h6: {
+      fontFamily: 'poppins, sans-serif',
+      fontWeight: 400,
+      letterSpacing: -0.5,
+      fontSize: 20,
+    },
+    body1: {
+      fontSize: 15,
+      lineHeight: 1.4,
+    },
     subtitle1: {},
   },
 })

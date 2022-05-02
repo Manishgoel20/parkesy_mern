@@ -1,17 +1,25 @@
 import { Button, CircularProgress } from '@mui/material'
 
-const LoadingButton = ({ loading, text, color, size, lineHeight }) => {
+const LoadingButton = ({
+  loading,
+  text,
+  color,
+  size,
+  lineHeight,
+  fullWidth,
+  textColor,
+}) => {
   return (
     <Button
-      sx={{ color: 'common.white' }}
+      sx={{ color: textColor ? textColor : 'common.white' }}
       style={{ lineHeight: lineHeight ? lineHeight : 'initial' }}
       height="100%"
-      fullWidth
       variant="contained"
       color={color ? color : 'secondary'}
       size={size ? size : 'large'}
       type="submit"
       disabled={loading}
+      fullWidth={fullWidth ? fullWidth : false}
     >
       {loading ? <CircularProgress size={26} color="inherit" /> : text}
     </Button>

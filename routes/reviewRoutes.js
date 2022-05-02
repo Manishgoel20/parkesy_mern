@@ -19,6 +19,7 @@ router
   .route('/')
   .get(getAllReviews)
   .post(accessTo('user'), setParkadeAndUserIds, createReview)
+
 router
   .route('/:id')
   .get(getReview)

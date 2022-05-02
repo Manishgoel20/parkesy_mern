@@ -1,0 +1,38 @@
+.db {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: auto;
+  padding-top: 8rem;
+  transition: all 0.3s ease-in-out;
+  z-index: -1;
+
+  &__left {
+    // width: auto;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 100%;
+    max-height: 80vh;
+    background: $secondLight;
+    border-radius: 0.5rem;
+    position: absolute;
+    transition: width 0.3s ease-in-out;
+  }
+
+  &__activeLink {
+    transition: width 0.3s ease-in-out;
+    display: block;
+    color: $primeMain;
+    border-left: 0.5rem solid $primeMain;
+  }
+}
+
+.active {
+  transition: width 0.3s ease-in-out;
+  display: block;
+  color: $primeMain;
+  // outline: 0.4rem solid $primeMain;
+  box-shadow: 0.5rem 0 0 0 $primeMain inset;
+}

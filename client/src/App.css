@@ -113,6 +113,13 @@ body {
   right: 0;
   top: 0; }
 
+.marker {
+  background-image: url("assets/images/MarkerImg.png");
+  background-size: cover;
+  width: 32px;
+  height: 40px;
+  cursor: pointer; }
+
 .u-center-text {
   text-align: center !important; }
 
@@ -189,6 +196,22 @@ svg#freepik_stories-parking.animated #freepik--Locator--inject-16 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
+
+.card {
+  border-radius: 3rem 0 0 0;
+  background: #fff;
+  overflow: hidden;
+  height: 15rem;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; }
+  .card__img {
+    width: 100%;
+    height: 115%;
+    object-fit: cover; }
+  .card__actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem; }
 
 .auth {
   height: 100vh;
@@ -307,11 +330,68 @@ svg#freepik_stories-parking.animated #freepik--Locator--inject-16 {
   flex: 0 1 40px; }
 
 .details {
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  width: 95vw;
+  width: 96vw;
   background: #ffecba;
   border-radius: 2rem 0 0 0;
   cursor: pointer;
   border: 0.1rem solid #ffbf1a;
   box-shadow: #ffecba 0px 30px 60px -12px, #ffecba 0px 18px 36px -18px; }
+
+.db {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: auto;
+  padding-top: 8rem;
+  transition: all 0.3s ease-in-out;
+  z-index: -1; }
+  .db__left {
+    overflow: hidden;
+    overflow-y: auto;
+    height: 100%;
+    max-height: 80vh;
+    background: #a91eff;
+    border-radius: 0.5rem;
+    position: absolute;
+    transition: width 0.3s ease-in-out; }
+  .db__activeLink {
+    transition: width 0.3s ease-in-out;
+    display: block;
+    color: #ffbf1a;
+    border-left: 0.5rem solid #ffbf1a; }
+
+.active {
+  transition: width 0.3s ease-in-out;
+  display: block;
+  color: #ffbf1a;
+  box-shadow: 0.5rem 0 0 0 #ffbf1a inset; }
+
+.picture {
+  height: 20rem;
+  width: 30rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  position: relative;
+  border: 0.1rem solid #a91eff; }
+  .picture__input {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 2; }
+  .picture__info {
+    position: absolute;
+    color: #000;
+    margin: 1rem;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+  .picture__text {
+    font-size: 1.5rem; }

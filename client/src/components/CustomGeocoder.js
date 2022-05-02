@@ -15,7 +15,6 @@ import {
   setGeoLocation,
 } from '../globalStore/ducks/mapbox'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLocation } from '../globalStore/ducks/search'
 import { setToast } from '../globalStore/ducks/toast'
 
 const CustomGeocoder = ({ id, label }) => {
@@ -27,8 +26,16 @@ const CustomGeocoder = ({ id, label }) => {
   const { autoComplete, place } = useSelector((state) => state.mapbox)
 
   useEffect(() => {
+    getMyLocation()
+  }, [])
+
+  useEffect(() => {
     dispatch(getAutocomplete(text))
   }, [text])
+
+  useEffect(() => {
+    setText(place)
+  }, [place])
 
   const setTextHandler = (place) => {
     setText(place)
@@ -42,6 +49,7 @@ const CustomGeocoder = ({ id, label }) => {
         const data = { lat: pos.coords.latitude, lng: pos.coords.longitude }
         dispatch(getPlaceName(data))
         setLocLoading(false)
+        setDisplay('none')
       },
       (err) => {
         setLocLoading(false)
@@ -72,7 +80,7 @@ const CustomGeocoder = ({ id, label }) => {
                 setText(e.target.value)
                 setDisplay('initial')
               }}
-              placeholder="Search..."
+              placeholder="Search by Address, Place or City"
               className="geocoder__input"
               required
             />

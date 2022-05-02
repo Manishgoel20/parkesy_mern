@@ -3,6 +3,7 @@ import {
   accessTo,
   forgotPassword,
   login,
+  logout,
   protect,
   resetPassword,
   signUp,
@@ -23,6 +24,7 @@ const router = express.Router()
 // Auth related stuffs
 router.route('/signup').post(signUp)
 router.route('/login').post(login)
+router.route('/logout').get(logout)
 router.route('/forgotPassword').post(forgotPassword)
 router.route('/resetPassword/:token').patch(resetPassword)
 

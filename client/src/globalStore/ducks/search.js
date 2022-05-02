@@ -11,12 +11,6 @@ const SET_EDT = 'SET_EDT'
 
 // INITIAL STATE
 const initialState = {
-  // locationName: 'Connaught Place, New Delhi, Delhi, India',
-  // lat: 28.6304,
-  // lng: 77.2177,
-  locationName: '',
-  lat: null,
-  lng: null,
   startDateTime: new Date(),
   refStartDate: new Date(),
   endDateTime: new Date(),

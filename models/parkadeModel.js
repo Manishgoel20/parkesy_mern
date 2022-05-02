@@ -10,7 +10,7 @@ const parkadeSchema = new mongoose.Schema(
       maxlength: [40, 'A Parkade name must have 10-40 characters'],
       minlength: [10, 'A Parkade name must have 10-40 characters'],
     },
-    providers: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
+    provider: { type: mongoose.Schema.ObjectId, ref: 'User' },
     description: {
       type: String,
       required: [true, 'Please, Let know users about the parkade'],
@@ -41,13 +41,16 @@ const parkadeSchema = new mongoose.Schema(
     },
     images: [
       {
-        type: String,
-        validate: {
-          validator: function (val) {
-            return val.length <= 3
+        img: {
+          type: String,
+          validate: {
+            validator: function (val) {
+              return val.length <= 3
+            },
+            message: 'You can add only 3 images',
           },
-          message: 'You can add only 3 images',
         },
+        publicId: { type: String },
       },
     ],
     vehicleSlots: {
@@ -116,13 +119,28 @@ const parkadeSchema = new mongoose.Schema(
         message: 'Discount price ({VALUE}) should be below regular price',
       },
     },
-
-    openingWeeks: { type: [Number], default: [1, 1, 1, 1, 1, 0, 0] }, //[sun, mon...,sat] 1->open 0->close
-    timings: { type: String },
+    openingWeeks: {
+      type: [Boolean],
+      default: [true, true, true, true, true, false, false],
+    }, //[ mon...,sat,sun]
+    timings: {
+      type: [String],
+      default: ['05:00', '23:00'],
+      validate: {
+        validator: function (val) {
+          return val.length == 2
+        },
+        message: 'Enter Opening & Closing time respectively!',
+      },
+    },
     features: {
       is24hr: { type: Boolean, default: true },
       isCctv: { type: Boolean, default: false },
       flexibleEntry: { type: Boolean, default: false },
+    },
+    approved: {
+      type: Boolean,
+      default: false,
     },
   },
   {
@@ -135,11 +153,11 @@ const parkadeSchema = new mongoose.Schema(
 // indexes
 parkadeSchema.index({ 'pricing.bike': 1, 'pricing.car': 1, 'pricing.bus': 1 })
 parkadeSchema.index({ ratingsAvg: 1, ratingsQuantity: -1 })
+parkadeSchema.index({ name: 1, provider: 1 })
 parkadeSchema.index({ location: '2dsphere' })
-parkadeSchema.index({ openingWeeks: 1, timings: 1 })
 
 // virtual fields
-parkadeSchema.virtual('vehicleSlots.totalSlots').get(function () {
+parkadeSchema.virtual('totalSlots').get(function () {
   return this.vehicleSlots.bike + this.vehicleSlots.car + this.vehicleSlots.bus
 })
 
@@ -155,7 +173,9 @@ parkadeSchema.virtual('bookings', {
   ref: 'Booking',
   foreignField: 'parkade',
   localField: '_id',
-  match: (doc) => console.log(doc),
+  options: {
+    match: { bookingStatus: 'booked', isPaid: 'true' },
+  },
 })
 
 // creating model

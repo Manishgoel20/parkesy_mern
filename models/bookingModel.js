@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+import crypto from 'crypto'
 
 const bookingSchema = new mongoose.Schema(
   {
@@ -31,7 +32,6 @@ const bookingSchema = new mongoose.Schema(
     isPaid: {
       type: Boolean,
       default: true,
-      select: false,
     },
     bookingStatus: {
       type: String,
@@ -49,7 +49,7 @@ const bookingSchema = new mongoose.Schema(
       type: Date,
       required: [true, 'Booking must have a end time!'],
     },
-    entrykey: String, //send this to mail
+    entryKey: String, //send this to mail
   },
   { timestamps: true }
 )
@@ -59,6 +59,14 @@ bookingSchema.index({ startDateTime: 1, endDateTime: 1 })
 bookingSchema.index({ bookingStatus: 1 })
 bookingSchema.index({ vehicleType: 1 })
 
+bookingSchema.methods.createEntryKey = async function () {
+  const token = crypto.randomBytes(8).toString('hex')
+
+  const encryptedToken = crypto.createHash('sha256').update(token).digest('hex')
+  this.entryKey = encryptedToken
+  return token
+}
+
 // QUERY MIDDLEWARES
 bookingSchema.pre(/^find/, function (next) {
   this.populate({
@@ -66,7 +74,7 @@ bookingSchema.pre(/^find/, function (next) {
     select: 'firstName lastName photo',
   }).populate({
     path: 'parkade',
-    select: 'name images vehicleSlots',
+    select: 'name images',
   })
   next()
 })

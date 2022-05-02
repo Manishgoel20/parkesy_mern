@@ -5,6 +5,7 @@ import toast from './ducks/toast'
 import userAuth from './ducks/userAuth'
 import search from './ducks/search'
 import mapbox from './ducks/mapbox'
+import parkade from './ducks/parkade'
 
 const middleware = [thunk]
 
@@ -13,6 +14,7 @@ const rootReducers = combineReducers({
   userAuth: userAuth,
   search: search,
   mapbox: mapbox,
+  parkadeData: parkade,
 })
 
 const store = createStore(
